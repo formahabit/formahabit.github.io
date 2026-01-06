@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forma - Mindful Meal Tracking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sage: #5B8A72;
+            --sage-light: #E8F0EB;
+            --sage-dark: #3D5C4A;
+            --amber: #D4A574;
+            --coral: #E8998D;
+            --bg-light: #FAFAF8;
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B6B6B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero background matching JPEG */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #F5F5F3 0%, #EDEDED 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+
+        /* Logo & Header */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(91, 138, 114, 0.3);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Hero Content */
+        .hero-content {
+            text-align: center;
+            max-width: 600px;
+            z-index: 1;
+            margin-bottom: 60px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--sage-light);
+            color: var(--sage-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 32px;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(91, 138, 114, 0.35);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(91, 138, 114, 0.45);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .phone-mockup img {
+            height: 580px;
+            width: auto;
+            border-radius: 40px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--sage);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--bg-light);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--sage-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 20px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Feature Highlights */
+        .highlights {
+            padding: 100px 20px;
+            background: #F5F5F3;
+        }
+
+        .highlight-row {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 100px;
+            flex-wrap: wrap;
+        }
+
+        .highlight-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .highlight-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .highlight-label {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--sage);
+            margin-bottom: 12px;
+        }
+
+        .highlight-title {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .highlight-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .highlight-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .highlight-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: white;
+            color: var(--sage-dark);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .highlight-phone {
+            flex-shrink: 0;
+        }
+
+        .highlight-phone img {
+            height: 500px;
+            width: auto;
+            border-radius: 36px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-phone img:hover {
+            transform: scale(1.02);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button-light {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--sage-dark);
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button-light:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        footer a {
+            color: var(--sage-light);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .phone-mockup img {
+                height: 450px;
+            }
+
+            .highlight-row {
+                gap: 40px;
+            }
+
+            .highlight-phone {
+                margin: 0 auto;
+            }
+
+            .highlight-phone img {
+                height: 400px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="FormaIcon.png" alt="Forma">
+            </div>
+            <span class="logo-text">Forma</span>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">Mindful Meal Tracking</div>
+            <h1 class="hero-title">
+                Build healthier habits,<br>
+                <span class="highlight">one meal at a time</span>
+            </h1>
+            <p class="hero-subtitle">
+                Track your meals, understand your patterns, and discover how food affects your mood. Simple, beautiful, and designed for your wellbeing.
+            </p>
+            <a href="#" class="cta-button">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Download on App Store
+            </a>
+        </div>
+
+        <div class="phone-mockup">
+            <img src="screen-home.jpeg" alt="Forma Home Screen">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Features</div>
+                <h2 class="section-title">Everything you need to eat mindfully</h2>
+                <p class="section-subtitle">Simple tools designed to help you build awareness around your eating habits.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Track Your Meals</h3>
+                    <p class="feature-desc">Log breakfast, lunch, dinner, and snacks with just a few taps. Track where you eat and how nourishing each meal is.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">😊</div>
+                    <h3 class="feature-title">Mood Tracking</h3>
+                    <p class="feature-desc">Understand how food affects your mood. Track how you feel before and after each meal to discover patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Weekly Intentions</h3>
+                    <p class="feature-desc">Set meaningful goals like eating more home-cooked meals or balanced eating. Celebrate when you achieve them.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3 class="feature-title">Healthy Streaks</h3>
+                    <p class="feature-desc">Build momentum with streaks that track your consecutive days of healthy eating. Watch your progress grow.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Rich Insights</h3>
+                    <p class="feature-desc">See your eating patterns, mood trends, weekday vs weekend habits, and what triggers your eating.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Milestones</h3>
+                    <p class="feature-desc">Earn achievements as you build healthy habits. From first meal logged to becoming a home cooking champion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlight Sections -->
+    <section class="highlights">
+        <div class="container">
+            <div class="highlight-row">
+                <div class="highlight-content">
+                    <div class="highlight-label">Daily Tracking</div>
+                    <h3 class="highlight-title">Your day at a glance</h3>
+                    <p class="highlight-desc">
+                        See your healthy streak, meal count, and balance score all in one place.
+                        Get personalized evening reflections that celebrate your wins and encourage mindful eating.
+                    </p>
+                    <div class="highlight-features">
+                        <span class="highlight-tag">🔥 Streak tracking</span>
+                        <span class="highlight-tag">📊 Balance score</span>
+                        <span class="highlight-tag">🌙 Evening reflections</span>
+                    </div>
+                </div>
+                <div class="highlight-phone">
+                    <img src="screen-home-with-meals.jpeg" alt="Daily tracking">
+                </div>
+            </div>
+
+            <div class="highlight-row">
+                <div class="highlight-content">
+                    <div class="highlight-label">Deep Insights</div>
+                    <h3 class="highlight-title">Understand your patterns</h3>
+                    <p class="highlight-desc">
+                        Discover how your eating habits differ between weekdays and weekends.
+                        See what triggers your meals and how food affects your mood over time.
+                    </p>
+                    <div class="highlight-features">
+                        <span class="highlight-tag">📅 Weekday vs Weekend</span>
+                        <span class="highlight-tag">🧠 Eating triggers</span>
+                        <span class="highlight-tag">😊 Mood patterns</span>
+                    </div>
+                </div>
+                <div class="highlight-phone">
+                    <img src="screen-insights-2.jpeg" alt="Insights">
+                </div>
+            </div>
+
+            <div class="highlight-row">
+                <div class="highlight-content">
+                    <div class="highlight-label">Your Journey</div>
+                    <h3 class="highlight-title">Celebrate your progress</h3>
+                    <p class="highlight-desc">
+                        Watch your milestones grow as you build healthy habits. From your first meal logged
+                        to becoming a home cooking champion, every step is celebrated.
+                    </p>
+                    <div class="highlight-features">
+                        <span class="highlight-tag">🏆 Achievements</span>
+                        <span class="highlight-tag">📈 Progress tracking</span>
+                        <span class="highlight-tag">🗓️ Calendar view</span>
+                    </div>
+                </div>
+                <div class="highlight-phone">
+                    <img src="screen-insights-3.jpeg" alt="Milestones">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Start your mindful eating journey</h2>
+        <p class="cta-subtitle">
+            Free to download. No account required. Your data stays on your device.
+        </p>
+        <a href="#" class="cta-button-light">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            Download for Free
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Forma. Made with 🌿 for mindful eaters. <a href="privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>
